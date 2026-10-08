@@ -91,7 +91,7 @@ ServisLaptop
 ├── view
 │   └── MenuView.java
 │
-├── validation
+├── validasiinput
 │   └── ValidasiInput.java
 │
 ├── interfaces
@@ -136,9 +136,9 @@ Class `ServisController` bertugas mengatur proses utama pengelolaan data servis,
 
 `ServisController` menggunakan class `ValidasiInput` untuk membantu proses validasi data yang dimasukkan oleh pengguna.
 
-#### `validation`
+#### `validasiinput`
 
-Package `validation` berisi class `ValidasiInput`.
+Package `validasiinput` berisi class `ValidasiInput`.
 
 <img width="125" height="28" alt="image" src="https://github.com/user-attachments/assets/b2751b6e-1789-4c4c-a03b-1e928180966e" />
 
@@ -150,7 +150,7 @@ Class `ValidasiInput` dibuat khusus untuk menangani validasi input dari pengguna
 - tanggal
 - biaya servis
 
-Dengan memisahkan `ValidasiInput` ke dalam package `validation`, proses validasi tidak diletakkan langsung di dalam `ServisController`, sehingga kode menjadi lebih terorganisir dan mudah dikelola.
+Dengan memisahkan `ValidasiInput` ke dalam package `validasiinput`, proses validasi tidak diletakkan langsung di dalam `ServisController`, sehingga kode menjadi lebih terorganisir dan mudah dikelola.
 
 #### `interfaces` (Nilai Tambah)
 
@@ -267,7 +267,8 @@ Class `Perangkat` tidak dapat dibuat menjadi object secara langsung karena
 merupakan abstract class. Class ini memiliki abstract method
 `tampilkanInfo()` yang wajib diimplementasikan oleh subclass.
 
-<img width="389" height="31" alt="image" src="https://github.com/user-attachments/assets/b18a63c2-9fec-4eea-ae8d-4cc4192491bc" />/
+<img width="389" height="31" alt="image" src="https://github.com/user-attachments/assets/b18a63c2-9fec-4eea-ae8d-4cc4192491bc" />
+
 
 <img width="234" height="17" alt="image" src="https://github.com/user-attachments/assets/34068d04-9db6-40ff-bde1-64ac2f1c12fe" />
 
@@ -1360,7 +1361,8 @@ if (pilihanJenis == 1) {
         idPerangkat,
         merk,
         tipe,
-        kerusakan
+        kerusakan,
+        ukuranLayar
     );
 
 } else {
@@ -1369,7 +1371,8 @@ if (pilihanJenis == 1) {
         idPerangkat,
         merk,
         tipe,
-        kerusakan
+        kerusakan,
+        jenisCasing
     );
 }
 ```
