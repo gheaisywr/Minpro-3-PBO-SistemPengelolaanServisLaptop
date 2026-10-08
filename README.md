@@ -12,7 +12,7 @@ untuk memenuhi **tugas Praktikum Mini Project 3 Pemrograman Berorientasi Objek.*
 ## Identitas Mahasiswa
 
 **Nama:** Ghea Aisyah Windraswari\
-**NIM:** 2509115022\
+**NIM:** 2509116022\
 **Program Studi:** Sistem Informasi\
 **Instansi:** Universitas Mulawarman
 
