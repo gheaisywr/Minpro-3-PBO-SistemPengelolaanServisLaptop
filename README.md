@@ -69,15 +69,17 @@ mengurangi kesalahan ketika pengguna memasukkan data.
 
 ------------------------------------------------------------------------
 
-## 2. Struktur Package dan MVC (Nilai Tambah)
+## 2. Struktur Package dan MVC
 
 Program menggunakan struktur **MVC (Model-View-Controller)** agar bagian
 data, tampilan, dan proses program dapat dipisahkan.
 
 Struktur package program adalah:
 
-``` text
+```text
 ServisLaptop
+├── controller
+│   └── ServisController.java
 │
 ├── model
 │   ├── Pelanggan.java
@@ -86,12 +88,11 @@ ServisLaptop
 │   ├── Komputer.java
 │   └── Servis.java
 │
-├── controller
-│   ├── ServisController.java
-│   └── ValidasiInput.java
-│
 ├── view
 │   └── MenuView.java
+│
+├── validation
+│   └── ValidasiInput.java
 │
 ├── interfaces
 │   └── InformasiPerangkat.java
@@ -123,26 +124,39 @@ Package `controller` berisi `ServisController`.
 
 <img width="154" height="41" alt="image" src="https://github.com/user-attachments/assets/b49be567-189e-4bf2-bc34-29a2f8eafe0d" />
 
-Class `ValidasiInput` berada pada package `controller` pada kode terbaru
-yang digunakan. Class ini berisi method untuk memvalidasi teks, angka,
-nomor telepon, tanggal, dan biaya.
+Class `ServisController` bertugas mengatur proses utama pengelolaan data servis, seperti:
 
-Class ini bertugas mengatur proses utama pengelolaan data, seperti:
+- tambah data servis
+- tampil data servis
+- ubah data servis
+- hapus data servis
+- cari data servis
+- penyimpanan data menggunakan `ArrayList`
+- dummy data awal
 
--   tambah data
--   tampil data
--   ubah data
--   hapus data
--   cari data
--   penyimpanan data pada `ArrayList`
--   dummy data awal
+`ServisController` menggunakan class `ValidasiInput` untuk membantu proses validasi data yang dimasukkan oleh pengguna.
 
-Class `ValidasiInput` digunakan untuk menangani validasi input agar
-`ServisController` tetap lebih terorganisir.
+#### `validation`
 
-#### `interfaces`
+Package `validation` berisi class `ValidasiInput`.
+
+<img width="125" height="28" alt="image" src="https://github.com/user-attachments/assets/b2751b6e-1789-4c4c-a03b-1e928180966e" />
+
+Class `ValidasiInput` dibuat khusus untuk menangani validasi input dari pengguna. Class ini memiliki beberapa method untuk memvalidasi:
+
+- teks
+- angka
+- nomor telepon
+- tanggal
+- biaya servis
+
+Dengan memisahkan `ValidasiInput` ke dalam package `validation`, proses validasi tidak diletakkan langsung di dalam `ServisController`, sehingga kode menjadi lebih terorganisir dan mudah dikelola.
+
+#### `interfaces` (Nilai Tambah)
 
 Package `interfaces` berisi interface `InformasiPerangkat`.
+
+<img width="146" height="29" alt="image" src="https://github.com/user-attachments/assets/714fd7bd-29ad-4a5e-8871-03ff64f85033" />
 
 Interface ini digunakan sebagai nilai tambah pada Mini Project 3 dan
 memiliki method `tampilkanInfo()` yang menjadi aturan bagi class
@@ -185,11 +199,15 @@ Program menggunakan beberapa class yang memiliki fungsi berbeda.
 -   **Servis** → menyimpan informasi mengenai proses servis.
 -   **ServisController** → mengatur proses CRUD dan penyimpanan data.
 -   **ValidasiInput** → menangani validasi input pengguna.
--   **InformasiPerangkat** → interface untuk informasi perangkat.
 -   **MenuView** → menangani tampilan menu utama.
 -   **ServisLaptop** → menjadi class utama untuk menjalankan
     program.
 
+### Interface yang Digunakan
+
+-   **InformasiPerangkat** → interface untuk informasi perangkat.
+
+  
 Hubungan inheritance pada program dapat digambarkan sebagai berikut:
 
 ``` text
@@ -249,9 +267,9 @@ Class `Perangkat` tidak dapat dibuat menjadi object secara langsung karena
 merupakan abstract class. Class ini memiliki abstract method
 `tampilkanInfo()` yang wajib diimplementasikan oleh subclass.
 
-[TAMBAHKAN GAMBAR DI SINI: Screenshot `Perangkat.java` yang memperlihatkan
-`abstract class`, `implements InformasiPerangkat`, dan
-`abstract void tampilkanInfo()`.]
+<img width="389" height="31" alt="image" src="https://github.com/user-attachments/assets/b18a63c2-9fec-4eea-ae8d-4cc4192491bc" />/
+
+<img width="234" height="17" alt="image" src="https://github.com/user-attachments/assets/34068d04-9db6-40ff-bde1-64ac2f1c12fe" />
 
 Class ini menjadi dasar bagi jenis perangkat lain seperti `Laptop` dan
 `Komputer`.
@@ -502,8 +520,13 @@ class `Komputer` yang digunakan.
 Dengan demikian, program menerapkan polymorphism melalui **method
 overriding**.
 
-[TAMBAHKAN GAMBAR DI SINI: Screenshot `Laptop.java` dan/atau
-`Komputer.java` yang memperlihatkan `@Override` pada `tampilkanInfo()`.]
+`Laptop.java`
+
+<img width="461" height="129" alt="image" src="https://github.com/user-attachments/assets/1480aa4b-c091-4850-9321-90c328d51bcc" />
+
+`Komputer.java`
+
+<img width="382" height="125" alt="image" src="https://github.com/user-attachments/assets/1db29fc9-9a18-4ca8-a824-f2d22a207df4" />
 
 ### Method Overloading
 
@@ -529,9 +552,9 @@ public void tampilkanInfo(boolean tampilkanPelanggan) {
 ```
 
 Perbedaan parameter tersebut menunjukkan penerapan **method overloading**.
+`Servis.java`
 
-[TAMBAHKAN GAMBAR DI SINI: Screenshot `Servis.java` yang memperlihatkan
-dua method `tampilkanInfo()` sebagai bukti overloading.]
+<img width="373" height="412" alt="image" src="https://github.com/user-attachments/assets/791e8f9b-1eb5-4f49-847e-e8b7c194981b" />
 
 ------------------------------------------------------------------------
 
@@ -566,8 +589,10 @@ diimplementasikan oleh subclass.
 Class `Laptop` dan `Komputer` kemudian memberikan implementasi masing-
 masing melalui method overriding.
 
-[TAMBAHKAN GAMBAR DI SINI: Screenshot `Perangkat.java` yang menunjukkan
-abstract class dan abstract method.]
+`Perangkat.java`
+
+<img width="532" height="167" alt="image" src="https://github.com/user-attachments/assets/39a6c226-6990-42d5-aefc-d84098cf404b" />
+
 
 ------------------------------------------------------------------------
 
@@ -597,8 +622,13 @@ public abstract class Perangkat implements InformasiPerangkat
 Dengan penerapan tersebut, `Perangkat` memiliki aturan untuk menyediakan
 method `tampilkanInfo()` yang kemudian diimplementasikan oleh subclass.
 
-[TAMBAHKAN GAMBAR DI SINI: Screenshot `InformasiPerangkat.java` dan
-penerapannya pada `Perangkat.java`.]
+`InformasiPerangkat.java`
+
+<img width="249" height="83" alt="image" src="https://github.com/user-attachments/assets/e874b2f6-3f81-4c5f-84af-9e440321c3c2" />
+
+`Perangkat.java`
+
+<img width="389" height="31" alt="image" src="https://github.com/user-attachments/assets/3d7e279a-8f6c-4a2f-aaa1-2821d58b64a7" />
 
 ------------------------------------------------------------------------
 
@@ -1362,7 +1392,7 @@ memasukkan data perangkat, kemudian memasukkan data servis.
 
 Data berhasil ditambahkan dengan ID servis `S005`.
 
-<img width="191" height="284" alt="Screenshot 2026-09-24 072932" src="https://github.com/user-attachments/assets/c0a6fb14-3ca1-4470-8cae-f133f97c61ef" />
+<img width="191" height="299" alt="image" src="https://github.com/user-attachments/assets/e7141bee-2126-445c-8573-3f4dbaec8f2e" />
 
 
 Program menampilkan:
@@ -1381,15 +1411,12 @@ Pengguna memilih menu **2. Tampilkan Data Servis**.
 Program menampilkan dummy data yang sudah tersedia serta data `S005`
 yang baru ditambahkan.
 
-<img width="317" height="299" alt="Screenshot 2026-09-24 073011" src="https://github.com/user-attachments/assets/99b0f1b4-c1d9-4509-990c-2fa7b74a443b" />
+<img width="317" height="314" alt="image" src="https://github.com/user-attachments/assets/47b85e45-5eb5-4b8a-b023-6e185e767566" />
+<img width="222" height="269" alt="image" src="https://github.com/user-attachments/assets/bbdecc62-7b9c-4ffc-aab1-6941db2ba5df" />
+<img width="211" height="275" alt="image" src="https://github.com/user-attachments/assets/d96cc341-3d84-4807-9200-c69655da3646" />
+<img width="242" height="270" alt="image" src="https://github.com/user-attachments/assets/a580c08d-6fce-4542-a975-f7882f0bee7d" />
+<img width="190" height="273" alt="image" src="https://github.com/user-attachments/assets/a706e137-5ccb-4ee7-ad1b-98318ef13551" />
 
-<img width="223" height="266" alt="Screenshot 2026-09-24 073022" src="https://github.com/user-attachments/assets/97e33d83-fe08-4bf5-a41d-a080cf4c5c61" />
-
-<img width="247" height="266" alt="Screenshot 2026-09-24 073044" src="https://github.com/user-attachments/assets/ca387ffd-3f01-4dc2-9f61-695215d54dc6" />
-
-<img width="212" height="262" alt="Screenshot 2026-09-24 073034" src="https://github.com/user-attachments/assets/b078e1fd-46d5-41f6-a570-a83f254903cb" />
-
-<img width="199" height="263" alt="Screenshot 2026-09-24 073057" src="https://github.com/user-attachments/assets/d833f3b1-4531-4167-9311-e9d7b2bda53e" />
 
 Data yang ditampilkan terdiri dari data pelanggan, perangkat, dan
 servis.
@@ -1402,7 +1429,7 @@ Pengguna memilih menu **3. Ubah Data Servis** dan memasukkan ID `S005`.
 
 Data ditemukan kemudian pengguna mengubah:
 
-<img width="203" height="335" alt="Screenshot 2026-09-24 073227" src="https://github.com/user-attachments/assets/0e4916c6-25d8-494a-b2fc-5304da16c39f" />
+<img width="185" height="345" alt="image" src="https://github.com/user-attachments/assets/e375a774-55d3-42a7-930b-0f677305c7f7" />
 
 ``` text
 Tanggal : 22-04-2026 → 23-04-2026
@@ -1426,7 +1453,7 @@ Pengguna memilih menu **5. Cari Data Servis** dan memasukkan ID `S005`.
 Program berhasil menemukan data dan menampilkan data terbaru setelah
 proses perubahan.
 
-<img width="185" height="335" alt="Screenshot 2026-09-24 073314" src="https://github.com/user-attachments/assets/8df42577-8a6c-4ed6-b5a4-8e3fa3be18c3" />
+<img width="186" height="347" alt="image" src="https://github.com/user-attachments/assets/07eb566c-092a-4062-8750-2cecb0e48679" />
 
 
 ------------------------------------------------------------------------
@@ -1441,19 +1468,22 @@ Program menampilkan data yang akan dihapus dan meminta konfirmasi:
 Yakin ingin menghapus? (y/n):
 ```
 
-<img width="183" height="37" alt="Screenshot 2026-09-24 073441" src="https://github.com/user-attachments/assets/732ccaec-c116-46d6-9cb3-3cb2764a60de" />
+<img width="186" height="368" alt="image" src="https://github.com/user-attachments/assets/5e0cd858-0050-45b8-8259-fe88ff42474c" />
+<img width="183" height="28" alt="image" src="https://github.com/user-attachments/assets/ccbf7a0e-3a8b-4b7f-8a73-641a000114ac" />
+
 
 Ketika pengguna memilih `n`, program membatalkan penghapusan.
 
 
-<img width="188" height="359" alt="Screenshot 2026-09-24 073419" src="https://github.com/user-attachments/assets/6cd50d26-20f7-471e-868b-519a503cd3ab" />
+<img width="189" height="368" alt="image" src="https://github.com/user-attachments/assets/2240e3dd-ef72-403b-a351-803efbb2526f" />
+<img width="178" height="26" alt="image" src="https://github.com/user-attachments/assets/567df00e-4ae9-40d7-a278-4a3103ce7bb6" />
 
 
 Setelah data dihapus dengan pilihan `y`, data `S005` tidak lagi
 ditemukan ketika dilakukan pencarian.
 
-<img width="167" height="74" alt="Screenshot 2026-09-24 073506" src="https://github.com/user-attachments/assets/5ec9c626-0658-4479-b42a-eb50b70e5bd9" />
-<img width="229" height="52" alt="Screenshot 2026-09-24 073552" src="https://github.com/user-attachments/assets/c57b3bcc-c34a-4816-9eab-22eb20d2130a" />
+<img width="161" height="68" alt="image" src="https://github.com/user-attachments/assets/652f1a41-dd65-4f29-a53e-ac0c79f94e38" />
+
 
 ------------------------------------------------------------------------
 
@@ -1462,6 +1492,9 @@ ditemukan ketika dilakukan pencarian.
 Program juga diuji menggunakan beberapa input yang tidak sesuai.
 
 ### 1. Validasi Nomor Telepon
+
+Validasi nomor telepon digunakan untuk memastikan pengguna telah menginput angka untuk nomor telepon dan bukan menginput huruf ataupun simbol.
+Selain itu, memastikan pengguna menginput nomor telepon sebanyak 10-13 digit dan tidak kurang dari 10 digit.
 
 Ketika pengguna memasukkan huruf:
 
@@ -1486,6 +1519,8 @@ Nomor telepon harus 10-13 digit!
 
 ### 2. Validasi Jenis Perangkat
 
+Validasi jenis perangkat digunakan untuk memastikan pengguna menginput pilihan yang tersedia di menu dan tidak menginput pilihan lain selain itu.
+
 Ketika pengguna memasukkan pilihan `3`:
 
 ``` text
@@ -1498,6 +1533,9 @@ Pilihan hanya 1 atau 2!
 ------------------------------------------------------------------------
 
 ### 3. Validasi Tanggal
+
+Validasi tanggal digunakan untuk memastikan pengguna menginput tanggal servis sesuai dengan format yang sudah ditentukan oleh program.
+Selain itu, program memastikan pengguna untuk menginput bulan yang benar yaitu antara bulan 01-12 saja.
 
 Program menggunakan format:
 
@@ -1535,6 +1573,10 @@ Bulan harus 01-12!
 
 ### 4. Validasi Biaya
 
+Validasi biaya digunakan untuk memastikan biaya servis yang dimasukkan oleh pengguna berupa angka dan sesuai dengan ketentuan yang telah ditentukan. Jika pengguna memasukkan huruf, sistem akan menampilkan pesan bahwa biaya harus berupa angka.
+
+Selain itu, biaya servis yang dimasukkan harus memiliki nilai minimal Rp50.000. Jika biaya yang dimasukkan kurang dari batas tersebut, sistem akan meminta pengguna memasukkan biaya kembali.
+
 Ketika pengguna memasukkan huruf pada biaya:
 
 ``` text
@@ -1544,9 +1586,16 @@ Biaya harus berupa angka!
 
 <img width="149" height="53" alt="Screenshot 2026-09-24 074104" src="https://github.com/user-attachments/assets/0dc400a2-8a8b-4d89-9de3-9ea7f5bd134a" />
 
+Ketika pengguna memasukkan biaya servis yang kurang dari nominal Rp 50.000:
+
+<img width="131" height="38" alt="image" src="https://github.com/user-attachments/assets/6595e88a-f159-4f1b-bda9-b71a3c2df7e5" />
+
+
 ------------------------------------------------------------------------
 
 ### 5. Validasi Input Kosong
+
+Validasi input kosong digunakan untuk memastikan pengguna tidak sengaja mengosongkan pengisian data.
 
 Program juga menolak input yang kosong.
 
@@ -1580,12 +1629,21 @@ Komputer
 Servis
 ServisController
 MenuView
+ValidasiInput
 ServisLaptop
 ```
 
 Setiap class memiliki tugas masing-masing.
 
-### 2. Object
+### 2. Interface
+
+Program memiliki satu Interface:
+
+```text
+InformasiPerangkat
+```
+
+### 3. Object
 
 Object dibuat menggunakan keyword `new`.
 
@@ -1601,21 +1659,21 @@ dan:
 Perangkat perangkat = new Laptop(...);
 ```
 
-### 3. Constructor
+### 4. Constructor
 
 Constructor digunakan untuk memberikan nilai awal ketika object dibuat.
 
-### 4. Encapsulation
+### 5. Encapsulation
 
 Encapsulation diterapkan dengan membuat atribut menggunakan `private`
 dan mengaksesnya menggunakan getter dan setter.
 
-### 5. Access Modifier
+### 6. Access Modifier
 
 Program menggunakan `private` dan `public` untuk mengatur hak akses
 terhadap class, atribut, constructor, dan method.
 
-### 6. Inheritance
+### 7. Inheritance
 
 Inheritance diterapkan dengan hubungan:
 
@@ -1625,7 +1683,7 @@ Perangkat
    └── Komputer
 ```
 
-### 7. Polymorphism
+### 8. Polymorphism
 
 Polymorphism diterapkan melalui **method overriding** dan **method
 overloading**.
@@ -1634,23 +1692,23 @@ Overriding diterapkan pada `tampilkanInfo()` di class `Laptop` dan
 `Komputer`, sedangkan overloading diterapkan pada class `Servis` melalui
 dua method `tampilkanInfo()` dengan parameter yang berbeda.
 
-### 8. Abstraction
+### 9. Abstraction
 
 Abstraction diterapkan melalui abstract class `Perangkat` dan abstract
 method `tampilkanInfo()`.
 
-### 9. Interface
+### 10. Interface
 
 Interface `InformasiPerangkat` diterapkan sebagai nilai tambah. Interface
 ini memiliki method `tampilkanInfo()` dan diimplementasikan oleh
 abstract class `Perangkat`.
 
-### 10. ArrayList
+### 11. ArrayList
 
 `ArrayList<Servis>` digunakan untuk menyimpan kumpulan data servis
 selama program berjalan.
 
-### 9. Validasi Input
+### 12. Validasi Input
 
 Validasi digunakan untuk memastikan data yang dimasukkan pengguna sesuai
 dengan kebutuhan program.
@@ -1688,7 +1746,7 @@ Alur program secara sederhana adalah:
                 Kembali ke Menu
                       │
                       ▼
-              Pilih Menu 6
+                 Pilih Menu 6
                       │
                       ▼
                    SELESAI
